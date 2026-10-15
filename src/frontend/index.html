@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CardioVision 3D - Cardiovascular Risk Visualization & Explainable AI</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Three.js, OrbitControls, and GLTFLoader -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="/static/js/GLTFLoader.js"></script>
+
+  <!-- Application Stylesheet -->
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-icon">🫀</div>
+      <div class="brand-text">
+        <h1>CardioVision 3D</h1>
+        <p>Multimodal Cardiovascular Risk & Coronary Stenosis Mapping</p>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <div class="preset-selector-group">
+        <label for="patient-presets">Patient Case:</label>
+        <select id="patient-presets" class="custom-select">
+          <option value="case1">Case 1: Severe Triple-Vessel CAD (High Risk)</option>
+          <option value="case2">Case 2: Isolated LAD Stenosis (Anterior Ischemia)</option>
+          <option value="case3">Case 3: Healthy Control (Low Cardiovascular Risk)</option>
+          <option value="case4">Case 4: Atypical Angina / Borderline Risk</option>
+        </select>
+      </div>
+      
+      <button id="btn-run-assessment" class="btn-primary">
+        <span>⚡</span> Run AI Assessment
+      </button>
+
+      <button id="btn-view-metrics" class="btn-secondary">
+        📊 Validation Metrics
+      </button>
+    </div>
+  </header>
+
+  <!-- Clinical Safety Disclaimer Banner (Mandatory Requirement) -->
+  <aside class="disclaimer-banner" role="alert">
+    <span>⚠️</span>
+    <strong>CLINICAL DECISION SUPPORT NOTICE:</strong>
+    Predictions and 3D coronary risk maps are for educational and research decision-support only. They do NOT replace coronary angiography or certified cardiology consultation.
+  </aside>
+
+  <!-- Main Three-Column Application Container -->
+  <main class="app-container">
+    
+    <!-- LEFT PANEL: Clinical Feature Inputs -->
+    <section class="input-panel" aria-label="Clinical Input Parameters">
+      <div class="panel-header">
+        <h2><span>📋</span> Patient Physiological Inputs</h2>
+      </div>
+
+      <nav class="tab-nav">
+        <button class="tab-btn active" data-tab="tab-user-input">📁 User Input & Upload</button>
+        <button class="tab-btn" data-tab="tab-demographics">Demographics</button>
+        <button class="tab-btn" data-tab="tab-vitals">Vitals</button>
+        <button class="tab-btn" data-tab="tab-ecg">ECG & Echo</button>
+        <button class="tab-btn" data-tab="tab-labs">Blood Labs</button>
+      </nav>
+
+      <!-- Tab 0: User Input & Dummy Data Upload -->
+      <div id="tab-user-input" class="tab-content active">
+        
+        <!-- Section A: Dummy Data Folder Quick Loader -->
+        <div class="user-input-card">
+          <div class="card-badge-header">
+            <span class="badge-icon">🗂️</span>
+            <div>
+              <h3 class="card-heading">Dummy Datasets Folder</h3>
+              <p class="card-caption">Pre-built clinical cases from <code>dummy_data/</code></p>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 0.75rem;">
+            <label class="form-label" for="dummy-case-select">Select Case from dummy_data folder:</label>
+            <select id="dummy-case-select" class="custom-select">
+              <option value="patient_01_severe_triple_vessel_cad">Case 1: Severe Triple-Vessel CAD (High Risk)</option>
+              <option value="patient_02_isolated_lad_anterior_ischemia">Case 2: Isolated LAD Stenosis (Anterior Ischemia)</option>
+              <option value="patient_03_healthy_control_low_risk">Case 3: Healthy Normotensive Control (Low Risk)</option>
+              <option value="patient_04_atypical_angina_female_borderline">Case 4: Atypical Angina in Female (Borderline)</option>
+              <option value="patient_05_hypertensive_elderly_rca_stenosis">Case 5: Hypertensive Elderly (RCA Stenosis)</option>
+            </select>
+          </div>
+
+          <div class="dummy-case-desc" id="dummy-case-desc-box">
+            68yo male with uncontrolled DM, HTN, typical crushing chest pain, extensive anterior ST-elevation, EF 35%.
+          </div>
+
+          <div class="btn-row-flex" style="margin-top: 0.75rem;">
+            <button id="btn-load-dummy" class="btn-primary" style="flex: 1; padding: 0.55rem;">
+              <span>⚡</span> Load Dummy Patient
+            </button>
+            <button id="btn-download-dummy-file" class="btn-secondary" style="padding: 0.55rem 0.85rem;" title="Download selected JSON/CSV file">
+              <span>📥</span> Download
+            </button>
+          </div>
+        </div>
+
+        <!-- Section B: Drag & Drop / File Upload Box -->
+        <div class="user-input-card" style="margin-top: 1rem;">
+          <div class="card-badge-header">
+            <span class="badge-icon">📤</span>
+            <div>
+              <h3 class="card-heading">Upload Custom Patient File</h3>
+              <p class="card-caption">Upload any .json or .csv patient dataset</p>
+            </div>
+          </div>
+
+          <div id="drop-zone" class="drop-zone-container">
+            <input type="file" id="patient-file-input" accept=".json,.csv" style="display: none;">
+            <div class="drop-zone-icon">📂</div>
+            <p class="drop-zone-text"><strong>Drag & drop file here</strong>, or <span style="color: var(--accent-cyan); text-decoration: underline; cursor: pointer;" id="trigger-browse">browse</span></p>
+            <span class="drop-zone-subtext">Supports JSON & CSV (Key-Value or Feature row)</span>
+          </div>
+
+          <div id="upload-status" class="upload-status-box" style="display: none;">
+            <span class="status-icon">✅</span>
+            <span id="upload-status-text" class="status-text">File loaded successfully</span>
+          </div>
+        </div>
+
+        <!-- Section C: Direct Quick-Input Form -->
+        <div class="user-input-card" style="margin-top: 1rem;">
+          <div class="card-badge-header">
+            <span class="badge-icon">✏️</span>
+            <div>
+              <h3 class="card-heading">Direct Quick-Input</h3>
+              <p class="card-caption">Directly add or adjust patient parameters</p>
+            </div>
+          </div>
+
+          <div class="direct-input-grid">
+            <div class="form-group">
+              <label class="form-label" for="quick-Age">Age (yrs)</label>
+              <input type="number" id="quick-Age" class="form-input" value="62" min="20" max="95">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quick-BP">Systolic BP</label>
+              <input type="number" id="quick-BP" class="form-input" value="145" min="70" max="230">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quick-PR">Pulse Rate</label>
+              <input type="number" id="quick-PR" class="form-input" value="82" min="40" max="180">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quick-EF">EF-TTE (%)</label>
+              <input type="number" id="quick-EF" class="form-input" value="40" min="15" max="75">
+            </div>
+          </div>
+
+          <div class="form-group-row" style="margin-top: 0.5rem;">
+            <div class="form-group">
+              <label class="form-label" for="quick-RWMA">RWMA Segment</label>
+              <select id="quick-RWMA" class="custom-select">
+                <option value="0">0 - None (Normal)</option>
+                <option value="1">1 - Basal Septal</option>
+                <option value="2">2 - Apical/Lateral</option>
+                <option value="3" selected>3 - Extensive Ant/Sept</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quick-LDL">LDL (mg/dL)</label>
+              <input type="number" id="quick-LDL" class="form-input" value="155" min="40" max="300">
+            </div>
+          </div>
+
+          <div class="quick-chips-container">
+            <label class="quick-chip-label">
+              <input type="checkbox" id="quick-Typical_Chest_Pain" checked>
+              <span>Typical Chest Pain</span>
+            </label>
+            <label class="quick-chip-label">
+              <input type="checkbox" id="quick-St_Elevation" checked>
+              <span>ST Elevation</span>
+            </label>
+            <label class="quick-chip-label">
+              <input type="checkbox" id="quick-DM" checked>
+              <span>Diabetes (DM)</span>
+            </label>
+            <label class="quick-chip-label">
+              <input type="checkbox" id="quick-HTN" checked>
+              <span>Hypertension (HTN)</span>
+            </label>
+          </div>
+
+          <button id="btn-apply-direct" class="btn-primary" style="width: 100%; margin-top: 0.85rem; padding: 0.6rem;">
+            <span>🚀</span> Apply Direct Input & Predict
+          </button>
+        </div>
+
+        <!-- Section D: Raw JSON Data Inspector & Editor -->
+        <div class="user-input-card" style="margin-top: 1rem;">
+          <div class="card-badge-header">
+            <span class="badge-icon">🧾</span>
+            <div>
+              <h3 class="card-heading">Raw Patient JSON Editor</h3>
+              <p class="card-caption">Directly paste, edit, or copy JSON data</p>
+            </div>
+          </div>
+
+          <textarea id="raw-json-editor" class="raw-json-textarea" spellcheck="false" rows="8"></textarea>
+          
+          <div class="btn-row-flex" style="margin-top: 0.5rem;">
+            <button id="btn-apply-raw-json" class="btn-secondary" style="flex: 1; padding: 0.5rem;">
+              <span>💾</span> Apply Raw JSON
+            </button>
+            <button id="btn-export-json" class="btn-secondary" style="padding: 0.5rem 0.75rem;" title="Download current patient as JSON">
+              <span>📥</span> JSON
+            </button>
+            <button id="btn-export-csv" class="btn-secondary" style="padding: 0.5rem 0.75rem;" title="Download current patient as CSV">
+              <span>📊</span> CSV
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Tab 1: Demographics -->
+      <div id="tab-demographics" class="tab-content">
+        <div class="form-group-row">
+          <div class="form-group">
+            <label class="form-label" for="inp-Age">Age <span class="unit">yrs</span></label>
+            <input type="number" id="inp-Age" class="form-input" value="62" min="20" max="95">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inp-Sex">Sex</label>
+            <select id="inp-Sex" class="custom-select">
+              <option value="1">Male</option>
+              <option value="0">Female</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group-row">
+          <div class="form-group">
+            <label class="form-label" for="inp-Weight">Weight <span class="unit">kg</span></label>
+            <input type="number" id="inp-Weight" class="form-input" value="82" min="30" max="180">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inp-Length">Height <span class="unit">cm</span></label>
+            <input type="number" id="inp-Length" class="form-input" value="172" min="100" max="220">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inp-BMI">BMI <span class="unit">kg/m²</span></label>
+          <input type="number" id="inp-BMI" class="form-input" value="27.7" step="0.1" readonly>
+        </div>
+
+        <label class="form-check">
+          <span>Diabetes Mellitus (DM)</span>
+          <input type="checkbox" id="inp-DM" checked>
+        </label>
+        <label class="form-check">
+          <span>Hypertension (HTN)</span>
+          <input type="checkbox" id="inp-HTN" checked>
+        </label>
+        <label class="form-check">
+          <span>Current Smoker</span>
+          <input type="checkbox" id="inp-Current_Smoker" checked>
+        </label>
+        <label class="form-check">
+          <span>Family History of CAD (FH)</span>
+          <input type="checkbox" id="inp-FH" checked>
+        </label>
+        <label class="form-check">
+          <span>Dyslipidemia (DLP)</span>
+          <input type="checkbox" id="inp-DLP" checked>
+        </label>
+      </div>
+
+      <!-- Tab 2: Vitals & Symptoms -->
+      <div id="tab-vitals" class="tab-content">
+        <div class="form-group-row">
+          <div class="form-group">
+            <label class="form-label" for="inp-BP">Systolic BP <span class="unit">mmHg</span></label>
+            <input type="number" id="inp-BP" class="form-input" value="145" min="70" max="230">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inp-PR">Pulse Rate (PR) <span class="unit">bpm</span></label>
+            <input type="number" id="inp-PR" class="form-input" value="82" min="40" max="180">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inp-Function_Class">NYHA Function Class (0-3)</label>
+          <select id="inp-Function_Class" class="custom-select">
+            <option value="0">Class 0 (Asymptomatic)</option>
+            <option value="1">Class I (Mild)</option>
+            <option value="2" selected>Class II (Moderate)</option>
+            <option value="3">Class III (Severe)</option>
+          </select>
+        </div>
+
+        <label class="form-check">
+          <span>Typical Chest Pain</span>
+          <input type="checkbox" id="inp-Typical_Chest_Pain" checked>
+        </label>
+        <label class="form-check">
+          <span>Dyspnea on Exertion</span>
+          <input type="checkbox" id="inp-Dyspnea" checked>
+        </label>
+        <label class="form-check">
+          <span>Peripheral Edema</span>
+          <input type="checkbox" id="inp-Edema">
+        </label>
+        <label class="form-check">
+          <span>Systolic Murmur</span>
+          <input type="checkbox" id="inp-Systolic_Murmur">
+        </label>
+      </div>
+
+      <!-- Tab 3: ECG & Echo -->
+      <div id="tab-ecg" class="tab-content">
+        <div class="form-group">
+          <label class="form-label" for="inp-EF-TTE">Ejection Fraction (EF-TTE) <span class="unit">%</span></label>
+          <input type="number" id="inp-EF-TTE" class="form-input" value="40" min="15" max="75">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inp-Region_RWMA">Regional Wall Motion (RWMA 0-4)</label>
+          <select id="inp-Region_RWMA" class="custom-select">
+            <option value="0">0 - None (Normal Wall Motion)</option>
+            <option value="1">1 - Basal Septal / Anterior</option>
+            <option value="2">2 - Apical / Lateral</option>
+            <option value="3" selected>3 - Extensive Anterior/Septal</option>
+            <option value="4">4 - Global Hypokinesia</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inp-VHD">Valvular Heart Disease (VHD)</label>
+          <select id="inp-VHD" class="custom-select">
+            <option value="0" selected>None</option>
+            <option value="1">Mild</option>
+            <option value="2">Moderate</option>
+            <option value="3">Severe</option>
+          </select>
+        </div>
+
+        <label class="form-check">
+          <span>ST Segment Elevation</span>
+          <input type="checkbox" id="inp-St_Elevation" checked>
+        </label>
+        <label class="form-check">
+          <span>ST Segment Depression</span>
+          <input type="checkbox" id="inp-St_Depression">
+        </label>
+        <label class="form-check">
+          <span>Pathological Q Wave</span>
+          <input type="checkbox" id="inp-Q_Wave" checked>
+        </label>
+        <label class="form-check">
+          <span>T Wave Inversion</span>
+          <input type="checkbox" id="inp-Tinversion" checked>
+        </label>
+        <label class="form-check">
+          <span>Left Ventricular Hypertrophy (LVH)</span>
+          <input type="checkbox" id="inp-LVH">
+        </label>
+      </div>
+
+      <!-- Tab 4: Blood Labs -->
+      <div id="tab-labs" class="tab-content">
+        <div class="form-group-row">
+          <div class="form-group">
+            <label class="form-label" for="inp-FBS">FBS <span class="unit">mg/dL</span></label>
+            <input type="number" id="inp-FBS" class="form-input" value="160" min="60" max="400">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inp-CR">Creatinine <span class="unit">mg/dL</span></label>
+            <input type="number" id="inp-CR" class="form-input" value="1.2" step="0.1" min="0.5" max="8.0">
+          </div>
+        </div>
+
+        <div class="form-group-row">
+          <div class="form-group">
+            <label class="form-label" for="inp-LDL">LDL <span class="unit">mg/dL</span></label>
+            <input type="number" id="inp-LDL" class="form-input" value="155" min="40" max="300">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inp-HDL">HDL <span class="unit">mg/dL</span></label>
+            <input type="number" id="inp-HDL" class="form-input" value="34" min="15" max="90">
+          </div>
+        </div>
+
+        <div class="form-group-row">
+          <div class="form-group">
+            <label class="form-label" for="inp-TG">Triglycerides (TG) <span class="unit">mg/dL</span></label>
+            <input type="number" id="inp-TG" class="form-input" value="230" min="50" max="600">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inp-BUN">BUN <span class="unit">mg/dL</span></label>
+            <input type="number" id="inp-BUN" class="form-input" value="19" min="5" max="80">
+          </div>
+        </div>
+
+        <div class="form-group-row">
+          <div class="form-group">
+            <label class="form-label" for="inp-ESR">ESR <span class="unit">mm/hr</span></label>
+            <input type="number" id="inp-ESR" class="form-input" value="24" min="1" max="100">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inp-HB">Hemoglobin <span class="unit">g/dL</span></label>
+            <input type="number" id="inp-HB" class="form-input" value="13.8" step="0.1" min="7" max="20">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CENTER PANEL: Interactive 3D Cardiac Anatomy Visualizer -->
+    <section class="center-viewport" aria-label="3D Anatomical Heart Viewer">
+      <div id="heart-canvas-container"></div>
+
+      <!-- Floating 3D Navigation Controls -->
+      <div class="viewer-controls-overlay">
+        <div class="view-btn-group">
+          <button class="view-btn active" id="view-reset">Orbit</button>
+          <button class="view-btn" id="view-lad">Anterior (LAD)</button>
+          <button class="view-btn" id="view-lcx">Lateral (LCX)</button>
+          <button class="view-btn" id="view-rca">Inferior (RCA)</button>
+        </div>
+
+        <div class="viewer-toggle-group">
+          <button class="toggle-btn" id="btn-heart-solid" title="Render as 100% Solid Red Anatomical Heart">🫀 100% Red Heart</button>
+          <button class="toggle-btn" id="btn-heart-transparent" title="Render as 100% Transparent Glass Heart to view internal coronary vessels">🔍 Transparent Heart</button>
+          <button class="toggle-btn active" id="btn-toggle-beat">💓 Pulse Beat</button>
+        </div>
+
+        <!-- Dynamic Opacity Adjustment Slider -->
+        <div class="heart-opacity-bar">
+          <span class="opacity-bar-title">Heart Muscle Opacity:</span>
+          <input type="range" id="slider-heart-opacity" min="8" max="100" value="92" class="opacity-slider-input">
+          <span id="slider-opacity-badge" class="opacity-badge">92%</span>
+        </div>
+      </div>
+
+      <!-- Stenosis Risk Color Scale Legend -->
+      <div class="vessel-legend-overlay">
+        <span class="legend-title">Stenosis Risk Mapping</span>
+        <div class="legend-items">
+          <div class="legend-item"><span class="color-dot dot-normal"></span> Normal (&lt;30%)</div>
+          <div class="legend-item"><span class="color-dot dot-borderline"></span> Borderline (30-60%)</div>
+          <div class="legend-item"><span class="color-dot dot-stenotic"></span> Significant (&gt;60%)</div>
+        </div>
+      </div>
+
+      <!-- Interactive Click Inspector Tooltip -->
+      <div id="vessel-tooltip" class="vessel-tooltip" style="display: none;">
+        <div class="tooltip-header">
+          <span id="tooltip-name" class="tooltip-vessel-name">LAD</span>
+          <span id="tooltip-badge" class="tooltip-badge badge-stenotic">High Stenosis</span>
+        </div>
+        <p id="tooltip-body" class="tooltip-body">
+          Supplies anterior left ventricle and interventricular septum. Predicted stenosis: 84.5%.
+        </p>
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL: Clinical Dashboard & SHAP Explainability -->
+    <aside class="dashboard-panel" aria-label="Clinical Decision Dashboard">
+      
+      <!-- Overall CAD Classification Radial Gauge -->
+      <div class="cad-summary-card">
+        <span class="cad-card-title">Overall CAD Status Prediction</span>
+        <div class="radial-gauge-container">
+          <svg class="gauge-svg" viewBox="0 0 100 100">
+            <circle class="gauge-bg-circle" cx="50" cy="50" r="40"></circle>
+            <circle id="cad-gauge-circle" class="gauge-progress-circle" cx="50" cy="50" r="40" stroke-dasharray="251.3" stroke-dashoffset="50"></circle>
+          </svg>
+          <div class="gauge-text-overlay">
+            <div id="cad-prob-val" class="gauge-percent">88%</div>
+            <div class="gauge-subtext">CAD Probability</div>
+          </div>
+        </div>
+        <div id="cad-diagnosis-badge" class="cad-diagnosis-badge badge-stenotic">
+          CAD Positive (High Risk)
+        </div>
+      </div>
+
+      <!-- Vessel-Specific Stenosis Status Cards -->
+      <div class="vessel-bars-container">
+        <div class="vessel-bar-card" id="card-lad" title="Click to inspect LAD on 3D Heart">
+          <div class="vessel-bar-header">
+            <span class="vessel-name-label">Left Anterior Descending (LAD)</span>
+            <span id="prob-lad" class="vessel-prob-val" style="color: var(--risk-high);">84.2%</span>
+          </div>
+          <div class="progress-track">
+            <div id="bar-lad" class="progress-fill" style="width: 84.2%; background: var(--risk-high);"></div>
+          </div>
+        </div>
+
+        <div class="vessel-bar-card" id="card-lcx" title="Click to inspect LCX on 3D Heart">
+          <div class="vessel-bar-header">
+            <span class="vessel-name-label">Left Circumflex (LCX)</span>
+            <span id="prob-lcx" class="vessel-prob-val" style="color: var(--risk-borderline);">48.7%</span>
+          </div>
+          <div class="progress-track">
+            <div id="bar-lcx" class="progress-fill" style="width: 48.7%; background: var(--risk-borderline);"></div>
+          </div>
+        </div>
+
+        <div class="vessel-bar-card" id="card-rca" title="Click to inspect RCA on 3D Heart">
+          <div class="vessel-bar-header">
+            <span class="vessel-name-label">Right Coronary Artery (RCA)</span>
+            <span id="prob-rca" class="vessel-prob-val" style="color: var(--risk-normal);">21.4%</span>
+          </div>
+          <div class="progress-track">
+            <div id="bar-rca" class="progress-fill" style="width: 21.4%; background: var(--risk-normal);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explainable AI (SHAP Waterfall Attribution Panel) -->
+      <div class="shap-panel-card">
+        <div class="shap-title-row">
+          <h3><span>🔬</span> Feature Attributions (SHAP)</h3>
+          <span style="font-size: 0.7rem; color: var(--text-dim);">Top Drivers</span>
+        </div>
+        <p style="font-size: 0.72rem; color: var(--text-muted);">
+          <span style="color: var(--risk-high);">■ Red</span> raises risk &nbsp;|&nbsp; 
+          <span style="color: var(--risk-normal);">■ Green</span> protects
+        </p>
+
+        <div id="shap-bars-list" class="shap-bars-list">
+          <!-- Dynamic SHAP attribution rows populated via JS -->
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Model Performance Modal -->
+  <div id="metrics-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>5-Fold Cross-Validation Performance Metrics</h3>
+        <button id="modal-close" class="modal-close-btn">&times;</button>
+      </div>
+      <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem;">
+        Models trained strictly excluding LAD, LCX, RCA, and Cath from input features (zero target leakage).
+      </p>
+      <table class="metrics-table">
+        <thead>
+          <tr>
+            <th>Target</th>
+            <th>Accuracy</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>F1-Score</th>
+            <th>ROC-AUC</th>
+          </tr>
+        </thead>
+        <tbody id="metrics-tbody">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Application Logic Scripts -->
+  <script src="/static/js/heart3d.js?v=2.3"></script>
+  <script src="/static/js/dashboard.js?v=2.3"></script>
+</body>
+</html>
