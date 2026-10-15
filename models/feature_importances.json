@@ -1,0 +1,1002 @@
+{
+  "Cath": [
+    {
+      "feature": "Age",
+      "importance": 31.51998011022806
+    },
+    {
+      "feature": "Typical Chest Pain",
+      "importance": 30.56956949084997
+    },
+    {
+      "feature": "EF-TTE",
+      "importance": 20.022443620488048
+    },
+    {
+      "feature": "TG_HDL_ratio",
+      "importance": 17.01051943562925
+    },
+    {
+      "feature": "RPP",
+      "importance": 17.0099653955549
+    },
+    {
+      "feature": "TyG_index",
+      "importance": 16.514651296660304
+    },
+    {
+      "feature": "ECG_ischemia_score",
+      "importance": 15.515028440393507
+    },
+    {
+      "feature": "Echo_risk",
+      "importance": 13.523535838350654
+    },
+    {
+      "feature": "ESR",
+      "importance": 13.507420261856169
+    },
+    {
+      "feature": "BMI",
+      "importance": 13.007161367684603
+    },
+    {
+      "feature": "FBS",
+      "importance": 12.512352337129414
+    },
+    {
+      "feature": "HTN",
+      "importance": 12.011088139377534
+    },
+    {
+      "feature": "Weight",
+      "importance": 10.50900406576693
+    },
+    {
+      "feature": "DM",
+      "importance": 9.010583062656224
+    },
+    {
+      "feature": "LDL_HDL_ratio",
+      "importance": 9.006681507453322
+    },
+    {
+      "feature": "TG",
+      "importance": 7.51039620116353
+    },
+    {
+      "feature": "Na",
+      "importance": 6.505208564456552
+    },
+    {
+      "feature": "HDL",
+      "importance": 6.0058665606193244
+    },
+    {
+      "feature": "VHD",
+      "importance": 6.005810153204948
+    },
+    {
+      "feature": "AIP",
+      "importance": 6.005174430087209
+    },
+    {
+      "feature": "Tinversion",
+      "importance": 5.510973866097629
+    },
+    {
+      "feature": "HB",
+      "importance": 5.005655189510435
+    },
+    {
+      "feature": "CR",
+      "importance": 4.508348863571882
+    },
+    {
+      "feature": "Sex",
+      "importance": 4.5066022365354
+    },
+    {
+      "feature": "Region RWMA",
+      "importance": 4.019203245639801
+    },
+    {
+      "feature": "PR",
+      "importance": 4.008485244587064
+    },
+    {
+      "feature": "Atypical",
+      "importance": 3.5693935602903366
+    },
+    {
+      "feature": "Length",
+      "importance": 3.504340576939285
+    },
+    {
+      "feature": "WBC",
+      "importance": 3.0050206133164465
+    },
+    {
+      "feature": "LDL",
+      "importance": 2.5058237365446985
+    },
+    {
+      "feature": "PLT",
+      "importance": 2.502471305197105
+    },
+    {
+      "feature": "Neut",
+      "importance": 2.005413557868451
+    },
+    {
+      "feature": "K",
+      "importance": 1.5068815001286566
+    },
+    {
+      "feature": "BP",
+      "importance": 1.00706074712798
+    },
+    {
+      "feature": "Dyspnea",
+      "importance": 1.0057809022255242
+    },
+    {
+      "feature": "BUN",
+      "importance": 1.0047145267017186
+    },
+    {
+      "feature": "Lymph",
+      "importance": 0.5059693809598684
+    },
+    {
+      "feature": "Nonanginal",
+      "importance": 0.01236838847398758
+    },
+    {
+      "feature": "FH",
+      "importance": 0.00979686714708805
+    },
+    {
+      "feature": "Current Smoker",
+      "importance": 0.006336686201393604
+    },
+    {
+      "feature": "Obesity",
+      "importance": 0.0036434647627174854
+    },
+    {
+      "feature": "Function Class",
+      "importance": 0.003275258233770728
+    },
+    {
+      "feature": "BBB_LBBB",
+      "importance": 0.0
+    },
+    {
+      "feature": "LVH",
+      "importance": 0.0
+    },
+    {
+      "feature": "Poor R Progression",
+      "importance": 0.0
+    },
+    {
+      "feature": "BBB_RBBB",
+      "importance": 0.0
+    },
+    {
+      "feature": "St Depression",
+      "importance": 0.0
+    },
+    {
+      "feature": "DLP",
+      "importance": 0.0
+    },
+    {
+      "feature": "Lung rales",
+      "importance": 0.0
+    },
+    {
+      "feature": "Weak Peripheral Pulse",
+      "importance": 0.0
+    },
+    {
+      "feature": "Systolic Murmur",
+      "importance": 0.0
+    },
+    {
+      "feature": "Diastolic Murmur",
+      "importance": 0.0
+    },
+    {
+      "feature": "St Elevation",
+      "importance": 0.0
+    },
+    {
+      "feature": "Q Wave",
+      "importance": 0.0
+    },
+    {
+      "feature": "LowTH Ang",
+      "importance": 0.0
+    },
+    {
+      "feature": "Edema",
+      "importance": 0.0
+    },
+    {
+      "feature": "EX-Smoker",
+      "importance": 0.0
+    },
+    {
+      "feature": "CRF",
+      "importance": 0.0
+    },
+    {
+      "feature": "Thyroid Disease",
+      "importance": 0.0
+    },
+    {
+      "feature": "CHF",
+      "importance": 0.0
+    },
+    {
+      "feature": "Airway disease",
+      "importance": 0.0
+    },
+    {
+      "feature": "CVA",
+      "importance": 0.0
+    }
+  ],
+  "LAD": [
+    {
+      "feature": "Age",
+      "importance": 32.01539815030992
+    },
+    {
+      "feature": "Typical Chest Pain",
+      "importance": 25.54493737220764
+    },
+    {
+      "feature": "Echo_risk",
+      "importance": 22.536231577396393
+    },
+    {
+      "feature": "EF-TTE",
+      "importance": 18.52614084072411
+    },
+    {
+      "feature": "WBC",
+      "importance": 18.511641590856016
+    },
+    {
+      "feature": "LDL_HDL_ratio",
+      "importance": 16.510387153364718
+    },
+    {
+      "feature": "Lymph",
+      "importance": 14.517783846706152
+    },
+    {
+      "feature": "RPP",
+      "importance": 14.510325801558793
+    },
+    {
+      "feature": "ECG_ischemia_score",
+      "importance": 13.51205029617995
+    },
+    {
+      "feature": "Neut",
+      "importance": 11.509818247519433
+    },
+    {
+      "feature": "TyG_index",
+      "importance": 11.508803854696453
+    },
+    {
+      "feature": "BMI",
+      "importance": 11.008583197370172
+    },
+    {
+      "feature": "Weight",
+      "importance": 11.008472052402794
+    },
+    {
+      "feature": "ESR",
+      "importance": 10.011949797160923
+    },
+    {
+      "feature": "Region RWMA",
+      "importance": 8.519978232681751
+    },
+    {
+      "feature": "HDL",
+      "importance": 8.50774551089853
+    },
+    {
+      "feature": "FBS",
+      "importance": 8.0087531786412
+    },
+    {
+      "feature": "Na",
+      "importance": 8.007306450046599
+    },
+    {
+      "feature": "Length",
+      "importance": 7.507674333173782
+    },
+    {
+      "feature": "TG_HDL_ratio",
+      "importance": 6.00891977827996
+    },
+    {
+      "feature": "HB",
+      "importance": 5.50741162057966
+    },
+    {
+      "feature": "TG",
+      "importance": 5.008325322531164
+    },
+    {
+      "feature": "LDL",
+      "importance": 4.509348147548735
+    },
+    {
+      "feature": "CR",
+      "importance": 4.0118693839758635
+    },
+    {
+      "feature": "PR",
+      "importance": 3.5091258501634
+    },
+    {
+      "feature": "Dyspnea",
+      "importance": 3.5060608265921474
+    },
+    {
+      "feature": "PLT",
+      "importance": 2.5063567413017154
+    },
+    {
+      "feature": "Sex",
+      "importance": 2.0087080346420407
+    },
+    {
+      "feature": "K",
+      "importance": 2.0069546378217638
+    },
+    {
+      "feature": "FH",
+      "importance": 1.5084914211183786
+    },
+    {
+      "feature": "DM",
+      "importance": 0.5166434589773417
+    },
+    {
+      "feature": "Atypical",
+      "importance": 0.5144439060240984
+    },
+    {
+      "feature": "HTN",
+      "importance": 0.5096707474440336
+    },
+    {
+      "feature": "Function Class",
+      "importance": 0.5039129978977144
+    },
+    {
+      "feature": "St Depression",
+      "importance": 0.020287660881876945
+    },
+    {
+      "feature": "DLP",
+      "importance": 0.013754116371273994
+    },
+    {
+      "feature": "Current Smoker",
+      "importance": 0.008998183533549309
+    },
+    {
+      "feature": "BP",
+      "importance": 0.007445193361490965
+    },
+    {
+      "feature": "AIP",
+      "importance": 0.007228050846606493
+    },
+    {
+      "feature": "BUN",
+      "importance": 0.00720217963680625
+    },
+    {
+      "feature": "Diastolic Murmur",
+      "importance": 0.006689741741865873
+    },
+    {
+      "feature": "VHD",
+      "importance": 0.005886394996196032
+    },
+    {
+      "feature": "Tinversion",
+      "importance": 0.002284166868776083
+    },
+    {
+      "feature": "LVH",
+      "importance": 0.0
+    },
+    {
+      "feature": "BBB_LBBB",
+      "importance": 0.0
+    },
+    {
+      "feature": "BBB_RBBB",
+      "importance": 0.0
+    },
+    {
+      "feature": "Poor R Progression",
+      "importance": 0.0
+    },
+    {
+      "feature": "Systolic Murmur",
+      "importance": 0.0
+    },
+    {
+      "feature": "Lung rales",
+      "importance": 0.0
+    },
+    {
+      "feature": "Weak Peripheral Pulse",
+      "importance": 0.0
+    },
+    {
+      "feature": "Nonanginal",
+      "importance": 0.0
+    },
+    {
+      "feature": "LowTH Ang",
+      "importance": 0.0
+    },
+    {
+      "feature": "Q Wave",
+      "importance": 0.0
+    },
+    {
+      "feature": "St Elevation",
+      "importance": 0.0
+    },
+    {
+      "feature": "Edema",
+      "importance": 0.0
+    },
+    {
+      "feature": "EX-Smoker",
+      "importance": 0.0
+    },
+    {
+      "feature": "CRF",
+      "importance": 0.0
+    },
+    {
+      "feature": "Obesity",
+      "importance": 0.0
+    },
+    {
+      "feature": "Thyroid Disease",
+      "importance": 0.0
+    },
+    {
+      "feature": "Airway disease",
+      "importance": 0.0
+    },
+    {
+      "feature": "CHF",
+      "importance": 0.0
+    },
+    {
+      "feature": "CVA",
+      "importance": 0.0
+    }
+  ],
+  "LCX": [
+    {
+      "feature": "TyG_index",
+      "importance": 31.523457380011678
+    },
+    {
+      "feature": "Age",
+      "importance": 27.525765435770154
+    },
+    {
+      "feature": "CR",
+      "importance": 22.016880037263036
+    },
+    {
+      "feature": "PLT",
+      "importance": 19.51484201196581
+    },
+    {
+      "feature": "Typical Chest Pain",
+      "importance": 19.026720570400357
+    },
+    {
+      "feature": "HDL",
+      "importance": 18.512188889086246
+    },
+    {
+      "feature": "Length",
+      "importance": 18.014657410793006
+    },
+    {
+      "feature": "Weight",
+      "importance": 13.010084684938192
+    },
+    {
+      "feature": "Na",
+      "importance": 12.513430728577077
+    },
+    {
+      "feature": "BMI",
+      "importance": 12.51102304738015
+    },
+    {
+      "feature": "WBC",
+      "importance": 12.009843110106885
+    },
+    {
+      "feature": "TG",
+      "importance": 11.0095529332757
+    },
+    {
+      "feature": "ESR",
+      "importance": 10.511030253954232
+    },
+    {
+      "feature": "FBS",
+      "importance": 10.010737121105194
+    },
+    {
+      "feature": "Lymph",
+      "importance": 9.009611296467483
+    },
+    {
+      "feature": "LDL",
+      "importance": 8.0131393102929
+    },
+    {
+      "feature": "BP",
+      "importance": 7.012179016135633
+    },
+    {
+      "feature": "HB",
+      "importance": 7.010147665627301
+    },
+    {
+      "feature": "BUN",
+      "importance": 5.011820283718407
+    },
+    {
+      "feature": "Neut",
+      "importance": 4.008945208974183
+    },
+    {
+      "feature": "K",
+      "importance": 3.508963597007096
+    },
+    {
+      "feature": "AIP",
+      "importance": 3.0153134930878878
+    },
+    {
+      "feature": "Sex",
+      "importance": 2.5156407468020916
+    },
+    {
+      "feature": "TG_HDL_ratio",
+      "importance": 2.012990307994187
+    },
+    {
+      "feature": "DLP",
+      "importance": 2.012740980833769
+    },
+    {
+      "feature": "EF-TTE",
+      "importance": 2.0100516146048903
+    },
+    {
+      "feature": "PR",
+      "importance": 1.518732313066721
+    },
+    {
+      "feature": "RPP",
+      "importance": 1.5152935842052102
+    },
+    {
+      "feature": "HTN",
+      "importance": 1.5071412976831198
+    },
+    {
+      "feature": "LDL_HDL_ratio",
+      "importance": 1.0092041669413447
+    },
+    {
+      "feature": "Current Smoker",
+      "importance": 1.008474187925458
+    },
+    {
+      "feature": "ECG_ischemia_score",
+      "importance": 0.5115133989602327
+    },
+    {
+      "feature": "Tinversion",
+      "importance": 0.5085061015561223
+    },
+    {
+      "feature": "Atypical",
+      "importance": 0.5
+    },
+    {
+      "feature": "FH",
+      "importance": 0.012086981907486916
+    },
+    {
+      "feature": "St Depression",
+      "importance": 0.009507732465863228
+    },
+    {
+      "feature": "VHD",
+      "importance": 0.009236288256943226
+    },
+    {
+      "feature": "LVH",
+      "importance": 0.008683186024427414
+    },
+    {
+      "feature": "Function Class",
+      "importance": 0.008351754397153854
+    },
+    {
+      "feature": "St Elevation",
+      "importance": 0.007428276818245649
+    },
+    {
+      "feature": "Echo_risk",
+      "importance": 0.007282490376383066
+    },
+    {
+      "feature": "Region RWMA",
+      "importance": 0.003878458170220256
+    },
+    {
+      "feature": "Nonanginal",
+      "importance": 0.002922622486948967
+    },
+    {
+      "feature": "Poor R Progression",
+      "importance": 0.0
+    },
+    {
+      "feature": "BBB_LBBB",
+      "importance": 0.0
+    },
+    {
+      "feature": "BBB_RBBB",
+      "importance": 0.0
+    },
+    {
+      "feature": "Edema",
+      "importance": 0.0
+    },
+    {
+      "feature": "Systolic Murmur",
+      "importance": 0.0
+    },
+    {
+      "feature": "Lung rales",
+      "importance": 0.0
+    },
+    {
+      "feature": "Weak Peripheral Pulse",
+      "importance": 0.0
+    },
+    {
+      "feature": "Diastolic Murmur",
+      "importance": 0.0
+    },
+    {
+      "feature": "Q Wave",
+      "importance": 0.0
+    },
+    {
+      "feature": "LowTH Ang",
+      "importance": 0.0
+    },
+    {
+      "feature": "Dyspnea",
+      "importance": 0.0
+    },
+    {
+      "feature": "EX-Smoker",
+      "importance": 0.0
+    },
+    {
+      "feature": "Obesity",
+      "importance": 0.0
+    },
+    {
+      "feature": "CRF",
+      "importance": 0.0
+    },
+    {
+      "feature": "CVA",
+      "importance": 0.0
+    },
+    {
+      "feature": "Thyroid Disease",
+      "importance": 0.0
+    },
+    {
+      "feature": "Airway disease",
+      "importance": 0.0
+    },
+    {
+      "feature": "CHF",
+      "importance": 0.0
+    },
+    {
+      "feature": "DM",
+      "importance": 0.0
+    }
+  ],
+  "RCA": [
+    {
+      "feature": "Neut",
+      "importance": 26.015720453113317
+    },
+    {
+      "feature": "ESR",
+      "importance": 24.51334853284061
+    },
+    {
+      "feature": "Age",
+      "importance": 23.517015289515257
+    },
+    {
+      "feature": "TG",
+      "importance": 21.01633216254413
+    },
+    {
+      "feature": "TyG_index",
+      "importance": 19.011796463280916
+    },
+    {
+      "feature": "DM",
+      "importance": 18.020205015316606
+    },
+    {
+      "feature": "PLT",
+      "importance": 17.510686738416553
+    },
+    {
+      "feature": "RPP",
+      "importance": 15.51008079573512
+    },
+    {
+      "feature": "Typical Chest Pain",
+      "importance": 14.531964410096407
+    },
+    {
+      "feature": "LDL_HDL_ratio",
+      "importance": 14.012150038965046
+    },
+    {
+      "feature": "Lymph",
+      "importance": 13.513393747620285
+    },
+    {
+      "feature": "WBC",
+      "importance": 11.012458328157663
+    },
+    {
+      "feature": "Weight",
+      "importance": 10.509956321679056
+    },
+    {
+      "feature": "HB",
+      "importance": 9.51046866364777
+    },
+    {
+      "feature": "PR",
+      "importance": 8.511971845291555
+    },
+    {
+      "feature": "BMI",
+      "importance": 8.011359054595232
+    },
+    {
+      "feature": "Dyspnea",
+      "importance": 7.012026557698846
+    },
+    {
+      "feature": "Length",
+      "importance": 6.512770378030837
+    },
+    {
+      "feature": "Sex",
+      "importance": 6.014384021982551
+    },
+    {
+      "feature": "Function Class",
+      "importance": 5.507000220473856
+    },
+    {
+      "feature": "FBS",
+      "importance": 5.009789204224944
+    },
+    {
+      "feature": "Atypical",
+      "importance": 4.51982569694519
+    },
+    {
+      "feature": "VHD",
+      "importance": 4.510914931073785
+    },
+    {
+      "feature": "Na",
+      "importance": 4.510160267353058
+    },
+    {
+      "feature": "K",
+      "importance": 4.508389189839363
+    },
+    {
+      "feature": "HDL",
+      "importance": 4.0095545733347535
+    },
+    {
+      "feature": "CR",
+      "importance": 4.009115627966821
+    },
+    {
+      "feature": "TG_HDL_ratio",
+      "importance": 3.5135090202093124
+    },
+    {
+      "feature": "Current Smoker",
+      "importance": 2.509843982756138
+    },
+    {
+      "feature": "Echo_risk",
+      "importance": 2.5085143512114882
+    },
+    {
+      "feature": "BUN",
+      "importance": 2.5057109310291708
+    },
+    {
+      "feature": "HTN",
+      "importance": 2.009902447462082
+    },
+    {
+      "feature": "BP",
+      "importance": 1.5089845890179276
+    },
+    {
+      "feature": "EF-TTE",
+      "importance": 1.5078492751345038
+    },
+    {
+      "feature": "ECG_ischemia_score",
+      "importance": 1.0122200399637222
+    },
+    {
+      "feature": "AIP",
+      "importance": 0.5122386235743761
+    },
+    {
+      "feature": "LDL",
+      "importance": 0.5083505259826779
+    },
+    {
+      "feature": "Nonanginal",
+      "importance": 0.014965235255658627
+    },
+    {
+      "feature": "FH",
+      "importance": 0.0101991081610322
+    },
+    {
+      "feature": "Region RWMA",
+      "importance": 0.006994315888732672
+    },
+    {
+      "feature": "Poor R Progression",
+      "importance": 0.00632916996255517
+    },
+    {
+      "feature": "Tinversion",
+      "importance": 0.0058583603240549564
+    },
+    {
+      "feature": "LVH",
+      "importance": 0.005691537167876959
+    },
+    {
+      "feature": "St Depression",
+      "importance": 0.0
+    },
+    {
+      "feature": "BBB_LBBB",
+      "importance": 0.0
+    },
+    {
+      "feature": "BBB_RBBB",
+      "importance": 0.0
+    },
+    {
+      "feature": "DLP",
+      "importance": 0.0
+    },
+    {
+      "feature": "Edema",
+      "importance": 0.0
+    },
+    {
+      "feature": "Lung rales",
+      "importance": 0.0
+    },
+    {
+      "feature": "Weak Peripheral Pulse",
+      "importance": 0.0
+    },
+    {
+      "feature": "Systolic Murmur",
+      "importance": 0.0
+    },
+    {
+      "feature": "Diastolic Murmur",
+      "importance": 0.0
+    },
+    {
+      "feature": "St Elevation",
+      "importance": 0.0
+    },
+    {
+      "feature": "Q Wave",
+      "importance": 0.0
+    },
+    {
+      "feature": "LowTH Ang",
+      "importance": 0.0
+    },
+    {
+      "feature": "EX-Smoker",
+      "importance": 0.0
+    },
+    {
+      "feature": "CRF",
+      "importance": 0.0
+    },
+    {
+      "feature": "Obesity",
+      "importance": 0.0
+    },
+    {
+      "feature": "Thyroid Disease",
+      "importance": 0.0
+    },
+    {
+      "feature": "Airway disease",
+      "importance": 0.0
+    },
+    {
+      "feature": "CHF",
+      "importance": 0.0
+    },
+    {
+      "feature": "CVA",
+      "importance": 0.0
+    }
+  ]
+}
